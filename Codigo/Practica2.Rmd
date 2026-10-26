@@ -73,6 +73,9 @@ p
 p1<-p+geom_point()
 p1
 
+# Gráficos de dispersión con ggplot2
+
+
 ```
 
 # Ejercicio 1. Dispersión de temperaturas
