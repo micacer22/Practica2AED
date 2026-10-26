@@ -3,25 +3,25 @@ title: "Práctica 2. Visualización de Datos"
 author: "Nombre y apellidos"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
   bookdown::pdf_document2:
     toc: true
     toc_depth: 3
     number_sections: true
     figure_caption: "Figura" 
     table_caption: "Tabla"
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
   html_document:
     echo: true
     number_sections: true
     theme: lumen
     toc: true
-  html_notebook:
-    echo: true
-    number_sections: true
-    toc: true
-  pdf_document:
-    toc: true
-    toc_depth: 3
-    number_sections: true
   bookdown::html_document2:
     echo: true
     number_sections: true
