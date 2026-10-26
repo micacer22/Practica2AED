@@ -74,7 +74,49 @@ p1<-p+geom_point()
 p1
 
 # Gráficos de dispersión con ggplot2
+p1<-p+geom_point()
+p1
 
+p2<-p1+ggtitle("Gráfico de dispersión consumo (mpg) frente a peso (wt)")
+p2
+
+p<-ggplot(data=mtcars, 
+          mapping=aes(x = wt, 
+                      y = mpg))+
+  geom_point()+
+  labs(title = "Motor Trend Car Road Tests",
+       subtitle = "Relación entre el peso de un vehículo y su consumo",
+       x = "Weight (1000 lbs)",
+       y = "Miles/(US) gallon",
+       caption = "The data was extracted from the 1974 Motor Trend US magazine.")
+p
+p<-ggplot(mtcars, aes(x = wt, y = mpg, colour=vs))+geom_point()
+p
+mtcars1<-mtcars
+mtcars1$vs<-factor(mtcars1$vs,levels=c(0,1),labels=c("Motor en V", "Motor en línea"))
+p<-ggplot(mtcars1, aes(x = wt, y = mpg, colour=vs))+geom_point()
+p
+p+
+  labs(title = "Motor Trend Car Road Tests",
+       subtitle = "Relación entre el peso de un vehículo y su consumo",
+       x = "Weight (1000 lbs)",
+       y = "Miles/(US) gallon",
+       caption = "The data was extracted from the 1974 Motor Trend US magazine.",
+       colour='Tipo de motor')
+p<-ggplot(mtcars1, aes(x = wt, y = mpg, shape=vs))+geom_point()+
+  labs(shape='(vs) Tipo de motor')
+p
+p<-ggplot(mtcars, aes(x = wt, y = mpg, size=hp))+geom_point()
+p
+p+labs(size='(hp) Gross horsepower')
+p<-ggplot(mtcars, aes(x = wt, y = mpg, alpha=hp))+geom_point()
+p
+p+labs(alpha='(hp) Gross horsepower')
+p1<-ggplot(mtcars1, aes(x = wt, y = mpg))+geom_point() + facet_grid(.~vs )
+
+p1
+p2<-ggplot(mtcars1, aes(x = wt, y = mpg))+geom_point() + facet_grid(vs~. )
+p2
 
 ```
 
