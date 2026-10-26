@@ -181,5 +181,32 @@ ggsave('results/Ejercicio3.pdf', plot=grafico3_final, width=8, height=5)
 
 **Comentario:** La disposición en filas permite valorar cuál facilita la comparación. `geom_jitter()` desplaza los puntos, aumentando el ruido, para reducir su superposición y mejorar la visualización de los puntos. 
 
+# Ejercicio 4. Ventas mensuales
+
+```{r ejercicio-4}
+objetos4 <- load('data/Ejercicio4_Data.Rdata')
+print(objetos4)
+obj4 <- get(objetos4[1])
+str(obj4)
+print(names(obj4))
+```
+```{r gráficos ejercicio 4}
+grafico4_puntos <- ggplot(obj4, aes(x=Fecha, y=Ventas, color=Fabricante)) + geom_point()
+print(grafico4_puntos)
+grafico4_lineas <- grafico4_puntos + geom_line(aes(group=Fabricante))
+print(grafico4_lineas)
+grafico4_final <- ggplot(obj4, aes(x=Fecha, y=Ventas, color=Fabricante,
+                                    linetype=Fabricante, group=Fabricante)) +
+  geom_line() + geom_point() +
+  labs(title='Ventas mensuales de diferentes compañías tecnológicas',
+       x='Fecha', y='Ventas', color='Fabricante', linetype='Fabricante')
+print(grafico4_final)
+ggsave('results/Ejercicio4.pdf', plot=grafico4_final, width=8, height=5)
+```
+
+**Comentario:** El gráfico de puntos permite observar observaciones individuales, pero las líneas muestran más claramente la evolución temporal de cada fabricante.
+```
+
+
 
 
