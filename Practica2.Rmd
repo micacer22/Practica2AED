@@ -205,7 +205,34 @@ ggsave('results/Ejercicio4.pdf', plot=grafico4_final, width=8, height=5)
 ```
 
 **Comentario:** El gráfico de puntos permite observar observaciones individuales, pero las líneas muestran más claramente la evolución temporal de cada fabricante.
+
+#Ejercicio 2 ejemplo. Barras de error con ggplot2
+
+```{r}
+load("./data/ExperimentoEjemplo.Rdata")
+# Un gráfico simple
+# Podemos cambiar los tipos de línea y la forma de los puntos por grupos.
+ggplot(df3, aes(x=dose, y=len, shape=supp, linetype=supp))+
+  # position_dodge: desplaza la barras de error para facilitar la visualización 
+    geom_errorbar(aes(ymin=len-sd, ymax=len+sd), width=.1, position=position_dodge(0.05)) +
+    geom_line() +
+    geom_point()+
+    labs(title="Gráfico de la variable len frente a dosis",x="Dosis (mg)", y = "Len")+
+    theme_classic()
+# Si no nos gustan los colores... los podemos cambiar...
+# y añadir barras de error
+p <- ggplot(df3, aes(x=dose, y=len, group = supp, color=supp))+
+    geom_errorbar(aes(ymin=len-sd, ymax=len+sd), width=0.1,
+    position=position_dodge(0.05)) +
+    geom_line(aes(linetype=supp)) +
+    geom_point(aes(shape=supp))+
+    labs(title="Gráfico de la variable len frente a dosis",x="Dosis (mg)", y = "Len") +
+    theme_classic()
+p + theme_classic() + scale_color_brewer(palette="Blues")
+p
 ```
+
+
 
 
 
