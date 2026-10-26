@@ -160,4 +160,26 @@ ggsave('results/Ejercicio2.pdf', plot=grafico2_final, width=8, height=5)
 ```
 **Comentario:** El color facilita más la separación visual de las categorías. Por lo tanto, con la última representación se observa mejor la información que introduce la variable RainToday. 
 
+# Ejercicio 3. Iris en formato tidy
+
+```{r ejercicio-3}
+load('data/iris_tidy.Rdata')
+str(iris.tidy)
+iris.grafico1 <- ggplot(iris.tidy, aes(x=Species, y=Value))
+print(iris.grafico1 + geom_point())
+iris.grafico2 <- ggplot(iris.tidy, aes(x=Species, y=Value, color=Part))
+print(iris.grafico2 + geom_point())
+grafico_filas <- iris.grafico2 + geom_point() + facet_grid(Measure ~ .)
+grafico_columnas <- iris.grafico2 + geom_point() + facet_grid(. ~ Measure)
+print(grafico_filas)
+print(grafico_columnas)
+grafico3_final <- iris.grafico2 + geom_jitter(width=0.15, height=0, alpha=0.7) +
+  facet_grid(. ~ Measure) + labs(title='Medidas de Iris por especie')
+print(grafico3_final)
+ggsave('results/Ejercicio3.pdf', plot=grafico3_final, width=8, height=5)
+```
+
+**Comentario:** La disposición en filas permite valorar cuál facilita la comparación. `geom_jitter()` desplaza los puntos, aumentando el ruido, para reducir su superposición y mejorar la visualización de los puntos. 
+
+
 
