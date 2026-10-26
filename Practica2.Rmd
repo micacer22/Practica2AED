@@ -158,5 +158,6 @@ grafico2_final <- ggplot(ds, aes(Temp9am, Pressure9am, color=as.factor(RainToday
 print(grafico2_final)
 ggsave('results/Ejercicio2.pdf', plot=grafico2_final, width=8, height=5)
 ```
-**Comentario:** El color facilita más la separación visual de las categorías.
+**Comentario:** El color facilita más la separación visual de las categorías. Por lo tanto, con la última representación se observa mejor la información que introduce la variable RainToday. 
+
 
