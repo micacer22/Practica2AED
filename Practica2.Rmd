@@ -190,7 +190,7 @@ obj4 <- get(objetos4[1])
 str(obj4)
 print(names(obj4))
 ```
-```{r gráficos ejercicio 4}
+```{r gráficos-ejercicio-4}
 grafico4_puntos <- ggplot(obj4, aes(x=Fecha, y=Ventas, color=Fabricante)) + geom_point()
 print(grafico4_puntos)
 grafico4_lineas <- grafico4_puntos + geom_line(aes(group=Fabricante))
@@ -208,7 +208,7 @@ ggsave('results/Ejercicio4.pdf', plot=grafico4_final, width=8, height=5)
 
 #Ejercicio 2 ejemplo. Barras de error con ggplot2
 
-```{r}
+```{r ej-ejemplo-2}
 load("./data/ExperimentoEjemplo.Rdata")
 # Un gráfico simple
 # Podemos cambiar los tipos de línea y la forma de los puntos por grupos.
@@ -232,6 +232,37 @@ p + theme_classic() + scale_color_brewer(palette="Blues")
 p
 ```
 
+
+# Ejercicio 5. Barras de error
+
+```{r ejercicio-5}
+objetos5 <- load('data/Experimento.Rdata')
+print(objetos5)
+exp5 <- get(objetos5[1])
+str(exp5)
+```
+
+```{r ejercicio-5-grafico, eval=FALSE}
+exp5$Complemento <- as.factor(exp5$Complemento)
+grafico5_base <- ggplot(exp5, aes(x=Dosis, y=Altura,
+                                  group=Complemento, color=Complemento,
+                                  linetype=Complemento, shape=Complemento)) +
+  geom_line() + geom_point()
+print(grafico5_base)
+grafico5_error <- grafico5_base +
+  geom_errorbar(aes(ymin=Altura-Error_Altura, ymax=Altura+Error_Altura), width=0.15)
+print(grafico5_error)
+grafico5_final <- ggplot(exp5, aes(Dosis, Altura, color=Complemento, group=Complemento)) +
+  geom_line(aes(linetype=Complemento)) +
+  geom_point(aes(shape=Complemento), size=2.5) +
+  geom_errorbar(aes(ymin=Altura-Error_Altura, ymax=Altura+Error_Altura), width=0.15) +
+  scale_color_brewer(palette='Reds') +
+  labs(title='Altura por dosis y complemento', x='Dosis', y='Altura')
+print(grafico5_final)
+ggsave('results/Ejercicio5.pdf', plot=grafico5_final, width=8, height=5)
+```
+
+**Comentario:** Las barras de error representan el intervalo definido por `Altura ± Error_Altura` para cada observación.
 
 
 
