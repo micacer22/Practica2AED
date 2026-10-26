@@ -284,7 +284,27 @@ grafico6 <- ggplot(rio_df, aes(x=Dia)) +
 print(grafico6)
 ggsave('results/Ejercicio6.pdf', plot=grafico6, width=9, height=5)
 ```
+
+# Ejercicio 7. Diagramas de caja y violín
+
+```{r ejercicio-7}
+objetos7 <- load('data/weatherAUS_distributions.RData')
+print(objetos7)
+clima7 <- get(objetos7[1])
+str(clima7)
+clima7$Year <- as.factor(clima7$Year)
+grafico7_box <- ggplot(clima7, aes(x=Year, y=MinTemp)) +
+  geom_boxplot(na.rm=TRUE) + labs(x='Año', y='Temperatura mínima')
+print(grafico7_box)
+grafico7_final <- ggplot(clima7, aes(x=Year, y=MaxTemp, fill=Year)) +
+  geom_violin(na.rm=TRUE) +
+  labs(title='Distribución de temperaturas máximas por año',
+       x='Año', y='Temperatura (ºC)') +
+  theme(legend.position='none', axis.text.x=element_text(angle=45, hjust=1))
+print(grafico7_final)
+ggsave('results/Ejercicio7.pdf', plot=grafico7_final, width=8, height=5)
 ```
+
 
 
 
