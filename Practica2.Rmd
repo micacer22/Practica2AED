@@ -272,6 +272,7 @@ print(objetos6)
 rio <- get(objetos6[1])
 str(rio)
 ```
+
 ```{r ejercicio-6-grafico, eval=FALSE}
 rio_df <- as.data.frame(rio)
 rio_df$Dia <- seq_len(nrow(rio_df))
@@ -305,7 +306,41 @@ print(grafico7_final)
 ggsave('results/Ejercicio7.pdf', plot=grafico7_final, width=8, height=5)
 ```
 
-
+# Ejercicio 3 ejemplo
+```{r ejercicio-3-ejemplo}
+load("./data/dataset_hist1.Rdata")
+#Histograma básico.
+ggplot(data=dataset_hist1, aes(x=AGE)) + geom_histogram()
+# Podemos ajustar el rango de representación del histograma y el tamaño de los bins
+ggplot(data=dataset_hist1, aes(x=AGE)) + geom_histogram(breaks=seq(20, 50, by=2))
+ggplot(data=dataset_hist1, aes(x=AGE)) +
+  geom_histogram(breaks=seq(20, 50, by=2),
+                 col="blue",
+                 fill="red",
+                 alpha = .4) +
+  labs(title="Histograma de la variable Edad", x="Edad", y="Frecuencia")
+ggplot(data=dataset_hist1, aes(x=AGE)) +
+  geom_histogram(breaks=seq(20, 50, by=2),
+                 col="black",
+                 aes(fill=after_stat(count))) +
+  scale_fill_gradient(low="blue", high="red")
+ggplot(data=dataset_hist1, aes(x=AGE)) +
+  geom_histogram(
+                 breaks=seq(18, 54, by = 2),
+                 col="blue",
+                 fill="red",
+                 alpha=.2) +
+  geom_density(col="black") +
+  labs(title="Histograma de la variable Edad", x="Edad", y="Frecuencia")
+ggplot(data=dataset_hist1, aes(x=AGE)) +
+  geom_histogram(aes(y =after_stat(density)),  #OJO USA UNA VARIABLE CALCULADA
+                 breaks=seq(18, 54, by = 2),
+                 col="blue",
+                 fill="red",
+                 alpha=.2) +
+  geom_density(col="black") +
+  labs(title="Histograma de la variable Edad", x="Edad", y="Frecuencia")
+```
 
 
 
