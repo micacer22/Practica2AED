@@ -305,6 +305,7 @@ grafico7_final <- ggplot(clima7, aes(x=Year, y=MaxTemp, fill=Year)) +
 print(grafico7_final)
 ggsave('results/Ejercicio7.pdf', plot=grafico7_final, width=8, height=5)
 ```
+**Comentario:** El boxplot resume la dispersión y los valores extremos; el violinplot permite apreciar además la forma de la distribución.
 
 # Ejercicio 3 ejemplo
 ```{r ejercicio-3-ejemplo}
@@ -342,7 +343,32 @@ ggplot(data=dataset_hist1, aes(x=AGE)) +
   labs(title="Histograma de la variable Edad", x="Edad", y="Frecuencia")
 ```
 
+# Ejercicio 8. Histograma de alturas
 
+Descargamos de la url “http://assets.datacamp.com/blog_assets/chol.txt” el dataset de Datacamp que usamos para este ejercicio, lo añadimos a la carpeta 'data' y lo cargamos en un dataframe.
+
+```{r ejercicio-8}
+fname_chol <- 'data/chol.txt'
+chol <- read.table(fname_chol, header=TRUE, sep='', stringsAsFactors=FALSE)
+str(chol)
+grafico8_base <- ggplot(chol, aes(x=HEIGHT)) +
+  geom_histogram(bins=20, fill='blue', color='red', alpha=0.5, na.rm=TRUE) +
+  coord_cartesian(xlim=c(155,195)) +
+  labs(title='Histograma de la variable Altura',
+       x='Altura (cm)', y='Frecuencia')
+print(grafico8_base)
+grafico8_final <- ggplot(chol, aes(x=HEIGHT)) +
+  geom_histogram(aes(y=after_stat(density)), breaks=seq(155,195,length.out=21),
+                 fill='blue', color='red', alpha=0.5, na.rm=TRUE) +
+  geom_density(color='green', linewidth=1, na.rm=TRUE) +
+  coord_cartesian(xlim=c(155,195)) +
+  facet_grid(MORT ~ .) +
+  labs(title='Histograma de la variable Altura', x='Altura (cm)', y='Densidad')
+print(grafico8_final)
+ggsave('results/Ejercicio8.pdf', plot=grafico8_final, width=8, height=6)
+```
+
+**Comentario:** La curva verde estima la densidad de las alturas. La división por `MORT` permite comparar las distribuciones entre categorías.
 
 
 
