@@ -138,5 +138,25 @@ grafico3 <- grafico2 + geom_point(na.rm=TRUE) +
 print(grafico3)
 ggsave('results/Ejercicio1.pdf', plot=grafico3, width=8, height=5)
 ```
+**Comentario:** El color permite comparar la relación entre ambas temperaturas según la categoría de lluvia prevista.
+
+# Ejercicio 2. Forma y color de los puntos
+
+Se compara la representación de `RainToday` mediante forma y color.
+
+```{r ejercicio-2}
+grafico2_base <- ggplot(ds, aes(x=Temp9am, y=Pressure9am)) + geom_point(na.rm=TRUE)
+print(grafico2_base)
+grafico2_forma <- ggplot(ds, aes(Temp9am, Pressure9am, shape=as.factor(RainToday))) + geom_point(na.rm=TRUE)
+print(grafico2_forma)
+grafico2_final <- ggplot(ds, aes(Temp9am, Pressure9am, color=as.factor(RainToday))) +
+  geom_point(alpha=0.65, na.rm=TRUE) +
+  labs(title='Temperatura y presión a las 9:00',
+       subtitle='Comparación según lluvia en el día',
+       x='Temperatura a las 9:00', y='Presión a las 9:00', color='Lluvia hoy',
+       caption='Datos: weatherAUS')
+print(grafico2_final)
+ggsave('results/Ejercicio2.pdf', plot=grafico2_final, width=8, height=5)
+```
 
 
