@@ -264,6 +264,29 @@ ggsave('results/Ejercicio5.pdf', plot=grafico5_final, width=8, height=5)
 
 **Comentario:** Las barras de error representan el intervalo definido por `Altura ± Error_Altura` para cada observación.
 
+# Ejercicio 6. Caudal de ríos islandeses
+
+```{r ejercicio-6}
+objetos6 <- load('data/iceRiver.RData')
+print(objetos6)
+rio <- get(objetos6[1])
+str(rio)
+```
+```{r ejercicio-6-grafico, eval=FALSE}
+rio_df <- as.data.frame(rio)
+rio_df$Dia <- seq_len(nrow(rio_df))
+grafico6 <- ggplot(rio_df, aes(x=Dia)) +
+  geom_line(aes(y=flow.vat, color='flow.vat')) +
+  geom_line(aes(y=flow.jok, color='flow.jok')) +
+  scale_color_manual(values=c('flow.vat'='red', 'flow.jok'='blue')) +
+  labs(title='Caudal diario de dos ríos islandeses',
+       x='Día del período', y='Caudal', color='Río')
+print(grafico6)
+ggsave('results/Ejercicio6.pdf', plot=grafico6, width=9, height=5)
+```
+```
+
+
 
 
 
