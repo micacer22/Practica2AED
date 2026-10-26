@@ -1,0 +1,97 @@
+---
+title: "Práctica 2. Visualización de Datos"
+author: "Nombre y apellidos"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    figure_caption: "Figura" 
+    table_caption: "Tabla"
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+    figure_caption: "Figura"
+    table_caption: "Tabla"
+always_allow_html: true
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+subtitle: "Análisis Exploratorio de Datos. Máster en Ciencia de Datos - UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
+# Introducción
+
+El objetivo es crear e interpretar representaciones gráficas con `ggplot2` y guardar los resultados en `results/`. Se sigue el modelo de la práctica 1. Los datos proporcionados en `P2.zip` están en la carpeta `data/`.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5)
+dir.create('results', showWarnings=FALSE, recursive=TRUE)
+```
+
+```{r paquetes}
+# Ya tenemos los paquetes instalados de ayer: install.packages('ggplot2')
+library(ggplot2)
+```
+
+# Ejercicio ejemplo
+```{r ejemplo}
+#Creando la primera capa de ggplot
+p<-ggplot(mtcars, aes(x = wt, y = mpg))
+p
+p1<-p+geom_point()
+p1
+
+```
+
+# Ejercicio 1. Dispersión de temperaturas
+
+Se carga `weatherAUS.RData` y se representan las temperaturas mínimas y máximas. Se incorpora el pronóstico de lluvia como variable categórica de color.
+
+```{r ejercicio-1}
+objetos <- load('data/weatherAUS.RData')
+print(objetos)
+stopifnot(exists('ds'))
+str(ds)
+grafico1 <- ggplot(ds, aes(x=MinTemp, y=MaxTemp))
+grafico1 + geom_point(na.rm=TRUE)
+grafico2 <- ggplot(ds, aes(x=MinTemp, y=MaxTemp, color=as.factor(RainTomorrow)))
+grafico3 <- grafico2 + geom_point(na.rm=TRUE) +
+  ggtitle('Temperaturas mínimas y máximas según lluvia prevista') +
+  labs(x='Temperatura mínima', y='Temperatura máxima', color='Lluvia mañana')
+print(grafico3)
+ggsave('results/Ejercicio1.pdf', plot=grafico3, width=8, height=5)
+```
+
+
